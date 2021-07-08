@@ -1,0 +1,22 @@
+<{include file="admincp_header.htm"}>
+<body>
+<div class="block"></div>
+	<form action="index.php?file=admincp&action=filters&job=edit" method="post">
+	<input type="hidden" name="id" value="<{$id}>" />
+	<table cellpadding="4" cellspacing="1" class="commontable width100">
+		<tr class="header">
+			<td><{$lan.editfilter}></td>
+		</tr>
+		<tr>
+			<td><{$lan.alias}> <input type="text" name="title" value="<{$title}>"></td>
+		</tr>
+		<tr>
+			<td><{$lan.remark}> <input type="text" name="remark" value="<{$remark}>"></td>
+		</tr>
+		<tr>
+			<td align="center"><textarea name="filter" style="width:100%;height:200px;" class="mustoffer"><{$data}></textarea><br /><input type="submit" value="<{$lan.save}>"></td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<{include file="admincp_header.htm"}>
+<script language="javascript">
+$(document).ready(function(){
+	zebra($("#items"));
+	$("#querycategory").val("<{$get.category}>");
+	$("#querysection").val("<{$get.section}>");
+	$("#queryorderby").val("<{if $get.orderby == ""}>id<{else}><{$get.orderby}><{/if}>");
+	$(".publish").click(function(event){
+		event.preventDefault();
+		var ids = $(this).attr("id");
+		$.get("index.php?file=admincp&action=publish&pub=1&id="+ids+"&vc=<{$vc}>&r="+Math.random(),function(data){
+			if(data == 'true') {
+				alert('<{$lan.publishsuccess}>');
+				window.location.reload();
+			} else {
+				alert('<{$lan.publishfaield}>');
+			}
+		});
+	});
+	$("td").dblclick(function(){
+		html = $(this).html();
+		divid = $(this).attr("id");
+		val = /([_0-9a-z]+)_([0-9]+)/.exec(divid);
+		if(val != null && val.length > 0 && $("#" + divid + "_input").length<=0) {
+			field = val[1];
+			id = val[2];
+			$("#" + divid).attr("originalhtml", $("#" + divid).html());
+			$.get("index.php?file=admincp&action=ajaxedit&field=" + field + "&id=" + id + "&vc=<{$vc}>&r="+Math.random(),function(data){
+				$("#" + divid).html(data);
+				$("#" + divid + "_input").focus();
+			});
+		} else {
+			divid = $(this).attr("id");
+		}
+	});
+});
+
+function saveajaxedit(key) {
+	val = /([_0-9a-z]+)_([0-9]+)/.exec(key);
+	if(val != null && val.length > 0) {
+		field = val[1];
+		id = val[2];
+		
+		if($("#" + key + "_input").attr("type") == "checkbox") {
+			if($("#" + key + "_input").attr("checked") == true) {
+				var inputvalue = 1;
+			} else {
+				var inputvalue = 0;
+			}
+		} else {
+			var inputvalue = $("#" + key + "_input").val();
+		}
+		$.post("index.php?file=admincp&action=saveajaxedit&field=" + field + "&id=" + id + "&vc=<{$vc}>&r="+Math.random(),
+			{
+				key:key,
+				value:inputvalue
+			},
+			function(data){
+				if(data == "0") {
+					if($("#" + key + "_input").attr("type") == "checkbox") {
+						ajaxtip('<{$lan.operatesuccess}>');
+					} else {
+						$.get("index.php?file=admincp&action=ajaxshow&field=" + field + "&id=" + id + "&vc=<{$vc}>&r="+Math.random(),function(data){
+							$("#" + key).html(data);
+						});
+					}
+				} else {
+					alert(data);
+				}
+			}
+		);
+		$("#" + key).html($("#" + key).attr("originalhtml"));
+	}
+}
+
+function resume(key) {
+	$("#" + key).html($("#" + key).attr("originalhtml"));
+}
+
+function confirmdelete() {
+	if(!confirm('<{$lan.suredelitem}>')) {
+		return false;
+	}
+}
+function invertselection() {
+	$(".item_id input[type=checkbox]").each(function(){$(this).attr("checked",!$(this).attr("checked"));});
+}
+function batch() {
+	$("#neworder").hide();
+	$("#newcategory").hide();
+	if($("#batchtype").val() == "setorder") {
+		$("#neworder").show();
+	}
+	if($("#batchtype").val() == "setcategory") {
+		$("#newcategory").show();
+	}
+}
+function checkbatch() {
+	if($('#batchtype').val() == '') {
+		alert('<{$lan.pleasechoose}>');
+		return false;
+	}
+}
+function emptydraft() {
+	if(confirm("<{$lan.emptydraftconfirm}>")) {
+		$.get("index.php?file=admincp&action=emptydraft&vc=<{$vc}>&r="+Math.random(),function(data){
+			if(data == "true") {
+				alert("<{$lan.emptydraftok}>");
+			} else {
+				alert("<{$lan.emptydraftwrong}>");
+			}
+		});
+	}
+}
+</script>
+<body>
+<iframe name="work" style="display:none"></iframe>
+<div class="block"></div>
+<table border="0" align="center" cellpadding="4" cellspacing="1" class="commontable width100" id="items">
+<form action="index.php" method="get">
+<input type="hidden" name="module" value="<{$moduleid}>">
+<input type="hidden" name="action" value="items">
+<tr class="header">
+	<td colspan="99"><div class="righttop"><a href="index.php?file=admincp&action=modules&job=editmodule&id=<{$moduleid}>"><{$lan.modifyfield}></a>&nbsp;<a href="javascript:void(0)" onclick="emptydraft()"><{$lan.emptydraft}></a></div><{$lan.query}></td>
+</tr>
+<tr>
+	<td colspan="99">
+	ID&nbsp;<input type="text" value="<{$get.id}>" name="id" size="5">
+	<{$lan.key}>&nbsp;<input type="text" value="<{$get.key}>" name="key" size="10">
+	<{$lan.editor}>&nbsp;<input type="text" value="<{$get.editor}>" name="editor" size="7">
+<{if $selectcategories}>
+	<{$lan.category}>&nbsp;<select name="category" id="querycategory"><option value=''><{$lan.pleasechoose}></option><{$selectcategories}></select>
+<{else}>
+	<{$lan.category}><{$lan.space}>ID&nbsp;<input type="text" size="6" name="category" value="" />
+<{/if}>
+	<{$lan.section}>&nbsp;<select name="section" id="querysection"><option value=''><{$lan.pleasechoose}></option><{$selectsections}></select>
+	<{$lan.orderby}>&nbsp;<select name="orderby" id="queryorderby"><option value="dateline"><{$lan.time}></option><option value="orderby"><{$lan.order}></option><option value="pageview"><{$lan.pvs}></option><option value="commentnum"><{$lan.lastcommentnum}></option><option value="lastcomment"><{$lan.lastcomment}></option><option value="lastupdate"><{$lan.lastmodify}></option></select>
+	<input type="submit" value="<{$lan.query}>">
+	</td>
+</tr>
+</form>
+<tr class="header">
+	<td>ID</td>
+	<{$fieldsheader}>
+	<td align="center"><{$lan.delete}></td>
+	<{if $page > 0}><td align="center"><{$lan.preview}></td><td align="center"><{$lan.realurl}></td><{/if}>
+	<{if $page > 0 && $html > 0}><td align="center"><{$lan.createhtml}></td><{/if}>
+</tr>
+<form id="batchform" name="batchform" action="index.php?file=admincp&action=items" method="post" onSubmit="return checkbatch()">
+<{$str_items}>
+<tr>
+	<td colspan="99">
+<input name="button" type="button" onClick="invertselection()" value="<{$lan.invertselection}>">&nbsp;
+<select name="batchtype" id="batchtype" onChange="batch()">
+<option value=""><{$lan.pleasechoose}></option>
+<option value="delete"><{$lan.delete}></option>
+<option value="createhtml"><{$lan.createhtml}></option>
+<option value="setorder"><{$lan.modifyorder}></option>
+<option value="setcategory"><{$lan.modifycategory}></option>
+<option value="publish"><{$lan.release}></option>
+</select>&nbsp;
+<span style="display:none" id="neworder"><{$lan.neworder}>
+<input type="text" name="neworder" value="0" size="10">
+</span>
+<span style="display:none" id="newcategory"><{$lan.newcategory}>
+<select name="newcategory">
+<option value="0"><{$lan.pleasechoose}></option>
+<{$selectcategories}>
+</select>
+</span>
+&nbsp;<input type="submit" value="<{$lan.batch}>" name="batchsubmit">
+	</td>
+</tr>
+</form>
+<form action="<{$indexurl}>" method="post">
+	<tr class="header">
+		<td colspan="99"><ul class="index"><{$str_index}></ul></td>
+	</tr>
+</form>
+</table>
+</body>
+</html>

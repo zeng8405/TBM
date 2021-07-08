@@ -1,0 +1,19 @@
+<{include file="admincp_header.htm"}>
+<script language="javascript">
+function confirmoperate() {
+	if(!confirm('<{$lan.makesure}>')) {
+		return false;
+	}
+}
+
+function testpopup() {
+	popup('index.php?app=user&action=view&uid=1', 600, 400);
+}
+</script>
+<body>
+<div class="block"></div>
+<{$htmlfilter}>
+<div class="block"></div>
+<{$table}>
+</body>
+</html>
