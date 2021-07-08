@@ -1,0 +1,37 @@
+<{include file="admincp_header.htm"}>
+<script type="text/javascript">
+$(document).ready(function(){
+	currentmenu("app", "alreadyinstalled");
+	$(".uninstall").click(function(event){
+		event.preventDefault();
+		if(confirm("<{$lan.makesureuninstallapp}>")) {
+			var key = $(this).parent().parent().next().text();
+			$.get("index.php?file=app&action=uninstall&key="+key, function(data){alert("<{$lan.succeduninstallapp}>");location.reload();});
+		}
+	});
+	$("#refresh").click(function(event){
+		location = "index.php?file=app&action=refresh";
+	});
+	if($("#flaga").length > 0) {$("#refresh").hide();}
+})
+</script>
+<body>
+<div class="block"></div>
+<table cellspacing="1" cellpadding="4" align="center" class="commontable width100">
+	<tr class="header">
+		<td colspan="3"><{$apppagename}></td>
+	</tr>
+	<tr>
+		<td>
+			<div class="appcontent">
+				<{$html}>
+				<div style="clear:both;"></div>
+			</div>
+			<div id="" style="text-align:center;">
+				<input id="refresh" type="button" value="<{$lan.refreshapplist}>" />
+			</div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

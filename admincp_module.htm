@@ -1,0 +1,184 @@
+<{include file="admincp_header.htm"}>
+<body>
+<div class="block"></div>
+<form action="index.php?file=admincp&action=modules&job=savemodule" method="post">
+<table border="0" cellspacing="1" cellpadding="4" class="commontable" align="center">
+<input type="hidden" name="id" value="<{$id}>">
+	<tr class="header">
+		<td colspan="2"><{if $modulename == ''}><{$lan.add}><{else}><{$lan.edit}><{/if}><{$lan.space}><{$lan.module}></td>
+	</tr>
+	<tr>
+		<td><{$lan.modulename}></td>
+		<td><input type="text" name="modulename" size="9" value="<{$modulename}>"></td>
+	</tr>
+	<tr>
+		<td><{$lan.ispage}></td>
+		<td><input type="radio" id="page1" name="page" value="1"<{if $page eq 1}> checked<{/if}>><label for="page1"><{$lan.yes}></label>&nbsp;<input type="radio" id="page-1" name="page" value="-1"<{if $page eq -1}> checked<{/if}>><label for="page-1"><{$lan.no}></label></td>
+	</tr>
+	<tr>
+		<td><{$lan.ifcreatehtml}></td>
+		<td><input type="radio" id="html0" name="html" value="0"<{if $html eq 0}> checked<{/if}>><label for="html0"><{$lan.withglobal}></label>&nbsp;<input type="radio" id="html1" name="html" value="1"<{if $html eq 1}> checked<{/if}>><label for="html1"><{$lan.yes}></label>&nbsp;<input type="radio" id="html-1" name="html" value="-1"<{if $html eq -1}> checked<{/if}>><label for="html-1"><{$lan.no}></label></td>
+	</tr>
+	<tr>
+		<td><{$lan.categoryispage}></td>
+		<td><input type="radio" id="categorypage1" name="categorypage" value="1"<{if $categorypage eq 1}> checked<{/if}>><label for="categorypage1"><{$lan.yes}></label>&nbsp;<input type="radio" id="categorypage-1" name="categorypage" value="-1"<{if $categorypage eq -1}> checked<{/if}>><label for="categorypage-1"><{$lan.no}></label></td>
+	</tr>
+	<tr>
+		<td><{$lan.categoryifcreatehtml}></td>
+		<td><input type="radio" id="categoryhtml1" name="categoryhtml" value="1"<{if $categoryhtml eq 1}> checked<{/if}>><label for="categoryhtml1"><{$lan.yes}></label>&nbsp;<input type="radio" id="categoryhtml-1" name="categoryhtml" value="-1"<{if $categoryhtml eq -1}> checked<{/if}>><label for="categoryhtml-1"><{$lan.no}></label></td>
+	</tr>
+	
+	<tr>
+		<td><{$lan.iffilename}></td>
+		<td>
+			<input type="radio" name="usefilename" value="0"<{if $usefilename eq 0}> checked<{/if}>><{$lan.withglobal}>
+			<input type="radio" name="usefilename" value="1"<{if $usefilename eq 1}> checked<{/if}>><{$lan.yes}>
+			<input type="radio" name="usefilename" value="-1"<{if $usefilename eq -1}> checked<{/if}>><{$lan.no}>
+		</td>
+	</tr>
+	<tr>
+		<td><{$lan.numperpage}></td>
+		<td><input type="text" name="numperpage" value="<{$numperpage}>" size="9"></td>
+	</tr>
+	<tr>
+		<td><{$lan.picturemaxsize}></td>
+		<td><input type="text" name="picturemaxsize" value="<{$picturemaxsize}>" size="9"></td>
+	</tr>
+	<tr>
+		<td><{$lan.itemtemplate}></td>
+		<td><select id="itemtemplate" name="itemtemplate"><option value=""><{$lan.pleasechoose}></option><{$templates}></select></td>
+	</tr>
+	<tr>
+		<td><{$lan.storemethod}></td>
+		<td><input type="text" id="storemethod" name="storemethod" value="<{$storemethod}>" size="50"></td>
+	</tr>
+	<tr>
+		<td><{$lan.template2}></td>
+		<td><select id="template2" name="template2"><option value=""><{$lan.pleasechoose}></option><{$templates}></select></td>
+	</tr>
+	<tr>
+		<td><{$lan.storemethod2}></td>
+		<td><input type="text" id="storemethod2" name="storemethod2" value="<{$storemethod2}>" size="50"></td>
+	</tr>
+	<tr>
+		<td><{$lan.template3}></td>
+		<td><select id="template3" name="template3"><option value=""><{$lan.pleasechoose}></option><{$templates}></select></td>
+	</tr>
+	<tr>
+		<td><{$lan.storemethod3}></td>
+		<td><input type="text" id="storemethod3" name="storemethod3" value="<{$storemethod3}>" size="50"></td>
+	</tr>
+	<tr>
+		<td><{$lan.template4}></td>
+		<td><select id="template4" name="template4"><option value=""><{$lan.pleasechoose}></option><{$templates}></select></td>
+	</tr>
+	<tr>
+		<td><{$lan.storemethod4}></td>
+		<td><input type="text" id="storemethod4" name="storemethod4" value="<{$storemethod4}>" size="50"></td>
+	</tr>
+	<tr>
+		<td><{$lan.pagetemplate}></td>
+		<td><select id="pagetemplate" name="pagetemplate"><option value=""><{$lan.pleasechoose}></option><{$templates}></select></td>
+	</tr>
+	<tr>
+		<td><{$lan.pagestoremethod}></td>
+		<td><input type="text" id="pagestoremethod" name="pagestoremethod" value="<{$pagestoremethod}>" size="50"></td>
+	</tr>
+	<tr>
+		<td><{$lan.defaulttemplate}></td>
+		<td>
+		<select name="defaulttemplate" id="defaulttemplate">
+		<option value=""><{$lan.default}></option>
+		<{$templates}>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td><{$lan.categoryhomemethod}></td>
+		<td><input type="text" value="<{$categoryhomemethod}>" name="categoryhomemethod" size="50"></td>
+	</tr>
+	<tr>
+		<td><{$lan.listtemplate}></td>
+		<td>
+		<select name="listtemplate" id="listtemplate">
+		<option value=""><{$lan.default}></option>
+		<{$templates}>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table border="0" cellspacing="1" cellpadding="5" class="commontable" align="center" id="fieldslist">
+				<tr class="header">
+					<td colspan="10"><{$lan.fieldsetting}></td>
+				</tr>
+				<tr>
+					<td><{$lan.field}></td>
+					<td><{$lan.variable}></td>
+					<td><{$lan.tag}></td>
+					<td><{$lan.alias}></td>
+					<td><{$lan.order}></td>
+					<td><{$lan.listorder}></td>
+					<td><{$lan.description}></td>
+					<td><{$lan.default}></td>
+					<td><{$lan.fieldsize}></td>
+					<td><{$lan.type}></td>
+				</tr>
+<{$fieldshtml}>
+			</table>
+			<div class="block2"></div>
+			<center><input type="submit" onclick="check_extfield_alias();return false;" value="<{$lan.save}>" /></center>
+		</td>
+	</tr>
+</table>
+</form>
+<script>
+function addfield() {
+	var trid = fieldslist.rows.length;
+	var objRow = fieldslist.insertRow(trid);
+	var objCel = objRow.insertCell(0);
+	objCel.innerHTML = "<input type='text' name='extfield" + trid + "' value='' size='12'>";
+	var objCel = objRow.insertCell(1);
+	var objCel = objRow.insertCell(2);
+	var objCel = objRow.insertCell(3);
+	objCel.innerHTML = "<input class='extfield_alias' type='text' name='extfield_alias" + trid + "' value='' size='10'>";
+	var objCel = objRow.insertCell(4);
+	objCel.innerHTML = "<input type='text' name='extfield_order" + trid + "' value='' size='3'>";
+	var objCel = objRow.insertCell(5);
+	objCel.innerHTML = "<input type='text' name='extfield_listorder" + trid + "' value='' size='3'>";
+	var objCel = objRow.insertCell(6);
+	objCel.innerHTML = "<input type='text' name='extfield_description" + trid + "' value='' size='16'>";
+	var objCel = objRow.insertCell(7);
+	objCel.innerHTML = "<input type='text' name='extfield_default" + trid + "' value='' size='10'>";
+	var objCel = objRow.insertCell(8);
+	objCel.innerHTML = "<input type='text' name='extfield_size" + trid + "' value='' size='9'>";
+	var objCel = objRow.insertCell(9);
+	objCel.innerHTML = "<select name='extfield_type" + trid + "' id='extfield_type" + trid + "' ><option value='plain'><{$lan.plaintext}></option><option value='rich'><{$lan.richtext}></option></select>";
+}
+function check_extfield_alias() {
+	var emptyalias = new Array();
+	$(".extfield_alias").each(function(i){
+		if($(this).val() == '') {
+			$(this).css('background','#ff0');
+			emptyalias.push(i);
+		}
+	});
+	if(emptyalias.length <= 0 || $(".extfield_alias").length <= 0) {
+		$("form").trigger("submit");
+		return '';
+	}
+	alert("<{$lan.cannotemptyalias}>");
+}
+$(document).ready(function(){
+	$("#itemtemplate").val("<{$itemtemplate}>");
+	$("#listtemplate").val("<{$listtemplate}>");
+	$("#defaulttemplate").val("<{$defaulttemplate}>");
+	$("#template2").val("<{$template2}>");
+	$("#template3").val("<{$template3}>");
+	$("#template4").val("<{$template4}>");
+	$("#pagetemplate").val("<{$pagetemplate}>");
+	$("tr").not(":odd").not(".header").children("td").css("background", "#EFEFEF");
+});
+</script>
+</body>
+</html>

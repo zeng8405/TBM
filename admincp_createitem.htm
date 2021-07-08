@@ -1,0 +1,43 @@
+<{include file="admincp_header.htm"}>
+<body>
+<div class="block"></div>
+<table align="center" cellpadding="4" cellspacing="1" class="commontable">
+	<tr class="header">
+		<td colspan="2"><{$lan.createitembatch}></td>
+	</tr>
+	<form action="index.php" method="get" name="batchform">
+	<tr>
+		<td><{$lan.choosecategory}></td>
+		<td>
+		<select name="category">
+		<option value="-1"><{$lan.allcategory}>+<{$lan.page}></option>
+		<option value="0"><{$lan.allcategory}></option>
+		<{$categories}>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td><{$lan.choosestep}></td> 
+		<td>
+		<select name="step">
+		<option value="1">1</option>
+		<option value="5">5</option>
+		<option value="10">10</option>
+		<option value="40">40</option>
+		<option value="50">50</option>
+		<option value="60">60</option>
+		<option value="70">70</option>
+		<option value="100">100</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<input type="hidden" name="action" value="createitem">
+		<div align="center"><input type="submit" name="createitemsubmit" value="<{$lan.start}>"></div>
+		</td>
+	</tr>
+	</form>
+</table>
+</body>
+</html>

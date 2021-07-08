@@ -1,0 +1,45 @@
+<{include file="admincp_header.htm"}>
+<body>
+<div class="block"></div>
+<iframe name="work" style="display:none"></iframe>
+<table cellspacing="1" cellpadding="4" align="center" class="commontable">
+	<tr class="header">
+		<td colspan="3"><{$lan.accountmanage}></td>
+	</tr>
+	<tr>
+		<td>
+		<table cellpadding="4" cellspacing="1" class="commontable">
+			<tr class="header">
+				<td><{$lan.account}></td>
+				<td><{$lan.delete}></td>
+				<td><{$lan.status}></td>
+				<td><{$lan.changestatus}></td>
+				<td><{$lan.resetpassword}></strong></td>
+				<td><{$lan.itemnum}></td>
+			</tr>
+			<{$users}>
+		</table>
+		<div class="block"></div>
+		<table cellpadding="4" cellspacing="1" class="commontable width100">
+			<form action="index.php?file=account&action=manageaccounts&job=newaccount" method="post">
+			<tr class="header">
+				<td colspan="10"><{$lan.newaccount}></td>
+			</tr>
+			<tr>
+				<td><{$lan.account}></td>
+				<td><input type="text" value="" name="account" class="mustoffer"></td>
+			</tr>
+			<tr>
+				<td><{$lan.password}></td>
+				<td><input type="password" name="password" class="mustoffer"></td>
+			</tr>
+			<tr>
+				<td colspan="10" align="center"><input type="submit" value="<{$lan.save}>" name="section_new_submit"></td>
+			</tr>
+			</form>
+		</table>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
